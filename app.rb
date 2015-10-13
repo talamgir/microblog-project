@@ -1,11 +1,12 @@
 require 'sinatra'
-require 'activerecord'
+require 'active_record'
 require 'sinatra/activerecord'
 
-require '/models.rb'
+
+require './models.rb'
 
 set :bind, "0.0.0.0"
-set :sessions, true
+enable :session
 
 get "/" do 
 	@users = User.all
@@ -16,8 +17,8 @@ get "/signup" do
 	erb :signup
 end
 
-get "signup_nametaken"
-	erb :name_taken
+get "/signup_nametaken" do
+	erb :nametaken
 end
 
 get "/login" do 
@@ -29,7 +30,7 @@ get "/logout" do
 	redirect to("/logout_successful")
 end
 
-post "/user_login_attempt"
+post "/user_login_attempt" do
 
 	matches = User.all.where({
 		:name => params[:username]
