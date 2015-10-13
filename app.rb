@@ -74,9 +74,17 @@ end
 get "/user_create_success" do
 	@users = User.all
 	erb :user_create_success
+
+	redirect to("/")
 end
 
 get "/user_create_error" do
 	erb :error
 end
+
+post "/tweet" do
+end
+
+
+
 

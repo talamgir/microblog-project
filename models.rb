@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
 		!self.password.nil? &&
 		self.password.length > 5 &&
 		!self.password.match("[0-9]").nil
-
+	end
 end
 
-class Tweet < ActiveRecord::Base
+class Post < ActiveRecord::Base
 end
