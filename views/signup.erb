@@ -1,9 +1,10 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title></title>
 </head>
 <body>
+
 <form method= "post" action="/user_create" class="form">
   <p>
   <label><b>Your Full Name</b></label></p>
@@ -14,13 +15,36 @@
     <label><b>Email Address</b></label>
     </p>
   <p>
+    <label><b>Handle</b></label>
+  </p>
+  <p>
+    <input type="text" name="handle">
+  </p>
+  <p>
+    <label><b>Security Question</b></label>
+  </p>
+
+  <p>
+    <textarea type="text" name="security_question">
+  </p>
+  <p>
+      <label><b>Security Answer</b></label>
+  </p>
+  <p>
+      <input type="text" name="security_answer">
+  </p>
+</form>
+<form method= "post" action="/sign_in" class="form">
+  <p>
     <input type="text" name="email">
     <label><b><br />
-      Your Request</b></label></p>
+      Email</b></label></p>
   <p>
     <textarea name="password" cols="50"></textarea>
   </p>
   <p><button type="submit">Submit</button></p>
+</form>
+
 </form>
 </body>
 </html>
