@@ -45,6 +45,7 @@ end
 
 get "/profile" do
 	@user = User.find(session[:user_id])
+	@handle =
 	erb :profile
 end
 
@@ -58,14 +59,21 @@ end
 
 post "/user_create" do
 	if params[:username].empty? ||
+		params[:handle].empty? ||
 		params[:email].empty? ||
-		params[:password].empty?
+		params[:password].empty? ||
+		params[:security_question].empty? ||
+		params[:security_answer].empty? 
 		redirect to("/user_create_error")
 	else
 		User.create({
 			:name => params[:username],
+			:handle => params[:handle],
 			:email => params[:email],
-			:password => params[:password]
+			:password => params[:password],
+			:security_question => params[:security_question],
+			:security_answer => params[:security_answer]
+
 		})
 		redirect to("/user_create_success")
 	end
@@ -83,6 +91,18 @@ get "/user_create_error" do
 end
 
 post "/tweet" do
+	if params[:content].empty?
+		redirect to ("tweet_unsuccessful")
+	else
+	Post.create({
+		:content => params[:content],
+		:posted_at => params[:posted_at]
+		})
+	end
+end
+
+get "/tweet_unsuccessful" do
+	#Your tweet was unsuccessful - this should be in an erb file
 end
 
 

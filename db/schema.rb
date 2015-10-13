@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013195759) do
+ActiveRecord::Schema.define(version: 20151013211757) do
 
   create_table "tweets", force: :cascade do |t|
     t.text     "content"
@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(version: 20151013195759) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "handle"
+    t.string "email"
+    t.string "security_question"
+    t.string "security_answer"
   end
 
 end

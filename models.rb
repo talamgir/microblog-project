@@ -7,4 +7,8 @@ class User < ActiveRecord::Base
 end
 
 class Post < ActiveRecord::Base
+	def aTweet
+		!self.content.nil? &&
+		self.content.length < 150
+	end
 end
