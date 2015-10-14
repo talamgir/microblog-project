@@ -1,27 +1,61 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+  <title></title>
 </head>
 <body>
-<form method= "post" action="/user_create" class="form">
+
+<form method="POST" action="/user_login_attempt" class="form">
   <p>
-  <label><b>Your Full Name</b></label></p>
+    <input type="text" name="email">
+    <b>Email</b>
+  </p>
+  <p>
+    <textarea name="password" cols="50"></textarea>
+    <b>Password</b>
+  </p> 
+  <p><button type="submit">Submit</button></p>
+</form>
+
+<br />
+
+<form method="POST" action="/signup" class="form">
+  <p>
+  <b>Your Full Name</b></p>
   <p>
     <input type="text" name="username">
   </p>
   <p>
-    <label><b>Email Address</b></label>
+    <b>Email Address</b>
     </p>
   <p>
-    <input type="text" name="email">
-    <label><b><br />
-      Your Request</b></label></p>
+    <textarea type="text" name="email"></textarea>
+  <p>
+    <b>Handle</b>
+  </p>
+  <p>
+    <input type="text" name="handle">
+  </p>
+  <p>
+    <b>Password Create</b>
+  </p>
   <p>
     <textarea name="password" cols="50"></textarea>
   </p>
+  <p>
+    <b>Security Question</b>
+  </p>
+  <p>
+    <textarea type="text" name="security_question">
+  </p>
+  <p>
+      <b>Security Answer</b>
+  </p>
+  <p>
+      <input type="text" name="security_answer">
+  </p>
   <p><button type="submit">Submit</button></p>
 </form>
+
 </body>
 </html>
-

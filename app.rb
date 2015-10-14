@@ -1,64 +1,39 @@
 require 'sinatra'
 require 'active_record'
 require 'sinatra/activerecord'
+require 'sinatra/flash'
 
 
 require './models.rb'
 
 set :bind, "0.0.0.0"
+set :database, "sqlite3:db/database.sqlite3"
 enable :session
 
+def a_user
+	if session[:user_id]
+		User.find session[:user_id]
+
+	end
+end
+
 get "/" do 
-	@users = User.all
-	erb :index
+	if a_user
+		erb :index
+	else
+		redirect to('/signup')
+	end
 end
 
 get "/signup" do
 	erb :signup
 end
 
-get "/signup_nametaken" do
-	erb :nametaken
-end
+post "/signup" do
+	if a_user
+		redirect "/profile"
 
-get "/login" do 
-	erb :login
-end
-
-get "/logout" do 
-	session.clear
-	redirect to("/logout_successful")
-end
-
-post "/user_login_attempt" do
-
-	matches = User.all.where({
-		:name => params[:username]
-		})
-	if matches.first
-		session[:user_id] = matches.first.user_id
-		redirect to ("/profile")
-	else
-		redirect to ("/login_error")
-	end
-end
-
-get "/profile" do
-	@user = User.find(session[:user_id])
-	@handle =
-	erb :profile
-end
-
-get "/login_error" do 
-	erb :error
-end 
-
-get "/logout_successful" do
-	erb :logout_success 
-end
-
-post "/user_create" do
-	if params[:username].empty? ||
+	elsif params[:username].empty? ||
 		params[:handle].empty? ||
 		params[:email].empty? ||
 		params[:password].empty? ||
@@ -83,27 +58,54 @@ get "/user_create_success" do
 	@users = User.all
 	erb :user_create_success
 
-	redirect to("/")
 end
 
 get "/user_create_error" do
 	erb :error
 end
 
-post "/tweet" do
-	if params[:content].empty?
-		redirect to ("tweet_unsuccessful")
+get "/login" do 
+	erb :signup
+end
+
+post "/user_login_attempt" do
+
+	matches = User.all.where({
+		:name => params[:username],
+		:password => params[:password]
+		})
+	if matches.first
+		session[:user_id] = matches.first.user_id
+		redirect to ("/profile")
 	else
+		redirect to ("/login_error")
+	end
+end
+
+get "/login_error" do 
+	erb :error
+end 
+
+get "/profile" do
+	@user = User.find(session[:user_id])
+	erb :profile
+end
+
+get "/logout" do 
+	session[:user_id] = nil
+	redirect to("/")
+end
+
+
+post "/tweet" do
+	
 	Post.create({
 		:content => params[:content],
 		:posted_at => params[:posted_at]
 		})
-	end
+	redirect to ("/profile")
 end
 
-get "/tweet_unsuccessful" do
-	#Your tweet was unsuccessful - this should be in an erb file
-end
 
 
 
