@@ -1,61 +1,54 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-</head>
-<body>
 
-<form method="POST" action="/user_login_attempt">
-  <p>
-    <input type="text" name="email">
+<form method="post" action="/user_login_attempt" class="form">
+  <label >
+    <input type="text" name="email"/>
     <b>Email</b>
-  </p>
+  </label>
   <p>
-    <textarea name="password" cols="50"></textarea>
+    <input type="password" name="password"/>
     <b>Password</b>
   </p> 
-  <p><button type="submit">Submit</button></p>
+  <button type="submit">Submit</button>
 </form>
 
 <br />
 
-<form method="POST" action="/signup" >
-  <p>
-  <b>Your Full Name</b></p>
-  <p>
-    <input type="text" name="username">
-  </p>
-  <p>
-    <b>Email Address</b>
-    </p>
-  <p>
-    <textarea type="text" name="email"></textarea>
-  <p>
-    <b>Handle</b>
-  </p>
-  <p>
-    <input type="text" name="handle">
-  </p>
-  <p>
-    <b>Password Create</b>
-  </p>
-  <p>
-    <textarea name="password" cols="50"></textarea>
-  </p>
-  <p>
-    <b>Security Question</b>
-  </p>
-  <p>
-    <textarea type="text" name="security_question">
-  </p>
-  <p>
-      <b>Security Answer</b>
-  </p>
-  <p>
-      <input type="text" name="security_answer">
-  </p>
-  <p><button type="submit">Submit</button></p>
-</form>
+<form method="post" action="/signup" class="form">
+  <label for="username">
+  <b>Your Full Name</b>
+  </label>
+ 
 
-</body>
-</html>
+    <input type="text" name="username">
+
+  <label for="email">
+    <b>Email Address</b>
+    </label>
+ 
+    <textarea type="text" name="email"></textarea>
+  <label for="handle">
+    <b>Handle</b>
+  </label>
+  
+    <input type="text" name="handle">
+
+  <label>
+    <b>Password Create</b>
+  </label>
+ 
+    <input type="text" name="password"/>
+ 
+  <label for="security_question">
+    <b>Security Question</b>
+  </label>
+ 
+    <textarea type="text" name="security_question"></textarea>
+ 
+  <label for="security_answer">
+      <b>Security Answer</b>
+  </label>
+ 
+      <input type="text" name="security_answer"/>
+
+  <button type="submit">Submit</button>
+</form>

@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
-		has_many :posts
-		has_one :profile
+	has_many :posts
+	has_one :profile
 
 	def isSecurePassword
 		!self.password.nil? &&
 		self.password.length > 5 &&
-		!self.password.match("[0-9]").nil
+		!self.password.match("[0-9]").nil?
 	end
 
 	def isGoodUsername
@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
 end
 
 class Post < ActiveRecord::Base
-		belongs_to :user
+	belongs_to :user
+
 	def aTweet
 		!self.content.nil? &&
 		self.content.length < 150

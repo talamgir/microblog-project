@@ -12,13 +12,13 @@ enable :session
 
 def a_user
 	if session[:user_id]
-		User.find session[:user_id]
+		User.find(session[:user_id])
 	end
 end
 
 get "/" do 
 	if a_user
-		erb :index
+		erb :profile
 	else
 		redirect to('/signup')
 	end
@@ -32,23 +32,25 @@ post "/signup" do
 	if a_user
 		redirect "/profile"
 	elsif 
-		User.create({
-			:name => params[:username],
-			:handle => params[:handle],
-			:email => params[:email],
-			:password => params[:password],
-			:security_question => params[:security_question],
-			:security_answer => params[:security_answer]
-		})
-		redirect to("/user_create_success")
-	else
+		puts "elsif"
 		params[:username].empty? ||
 		params[:handle].empty? ||
 		params[:email].empty? ||
 		params[:password].empty? ||
 		params[:security_question].empty? ||
 		params[:security_answer].empty? 
-		redirect to("/user_create_error")
+		redirect '/user_create_error'
+	else
+		puts "else"
+		User.create({
+			:name=> "#{params[:username]}",
+			:handle=> "#{params[:handle]}",
+			:email=> "#{params[:email]}",
+			:password=> "#{params[:password]}",
+			:security_question=> "#{params[:security_question]}",
+			:security_answer=> "#{params[:security_answer]}"
+		})
+		redirect '/user_create_success'
 	end
 end
 
@@ -69,8 +71,8 @@ end
 post "/user_login_attempt" do
 
 	matches = User.all.where({
-		:name => params[:username],
-		:password => params[:password]
+		:name=> "#{params[:username]}",
+		:password=> "#{params[:password]}"
 		})
 
 	if matches.first
@@ -101,12 +103,17 @@ end
 post "/tweet" do
 	
 	Post.create({
-		:content => params[:content],
-		:posted_at => params[:posted_at]
+		:content => "#{params[:content]}",
+		:posted_at => "#{params[:posted_at]}"
 		})
 		redirect to ("/profile")
 	end
+
+get "/tweet" do
+	erb :profile
+	end
 end
+
 
 
 
