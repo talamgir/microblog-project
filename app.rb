@@ -13,7 +13,6 @@ enable :session
 def a_user
 	if session[:user_id]
 		User.find session[:user_id]
-
 	end
 end
 
@@ -32,15 +31,7 @@ end
 post "/signup" do
 	if a_user
 		redirect "/profile"
-
-	elsif params[:username].empty? ||
-		params[:handle].empty? ||
-		params[:email].empty? ||
-		params[:password].empty? ||
-		params[:security_question].empty? ||
-		params[:security_answer].empty? 
-		redirect to("/user_create_error")
-	else
+	elsif 
 		User.create({
 			:name => params[:username],
 			:handle => params[:handle],
@@ -48,9 +39,16 @@ post "/signup" do
 			:password => params[:password],
 			:security_question => params[:security_question],
 			:security_answer => params[:security_answer]
-
 		})
 		redirect to("/user_create_success")
+	else
+		params[:username].empty? ||
+		params[:handle].empty? ||
+		params[:email].empty? ||
+		params[:password].empty? ||
+		params[:security_question].empty? ||
+		params[:security_answer].empty? 
+		redirect to("/user_create_error")
 	end
 end
 
@@ -74,6 +72,7 @@ post "/user_login_attempt" do
 		:name => params[:username],
 		:password => params[:password]
 		})
+
 	if matches.first
 		session[:user_id] = matches.first.user_id
 		redirect to ("/profile")
@@ -87,8 +86,10 @@ get "/login_error" do
 end 
 
 get "/profile" do
-	@user = User.find(session[:user_id])
-	erb :profile
+	if a_user
+		erb :profile
+	else
+		redirect to ("/login_error")
 end
 
 get "/logout" do 
@@ -103,7 +104,8 @@ post "/tweet" do
 		:content => params[:content],
 		:posted_at => params[:posted_at]
 		})
-	redirect to ("/profile")
+		redirect to ("/profile")
+	end
 end
 
 
